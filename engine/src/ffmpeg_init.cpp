@@ -91,17 +91,40 @@ extern "C" offset_t _url_seek( URLContext *h, offset_t pos, int whence )
 struct URLProtocol vsFileProtocol = {
     "vsfile",
     _url_open,
+#if (LIBAVCODEC_VERSION_MAJOR >= 53)
+    NULL, // url_open2
+#endif
+#if (LIBAVCODEC_VERSION_MAJOR >= 57)
+    NULL, // url_accept
+    NULL, // url_handshake
+#endif
     _url_read,
     _url_write,
     _url_seek,
     _url_close,
-    
 #if (LIBAVCODEC_VERSION_MAJOR >= 53)
-    NULL, NULL, NULL, NULL,
-    0,
-    NULL,
-    0,
-    NULL
+    NULL, // next
+    NULL, // url_read_pause
+    NULL, // url_read_seek
+    NULL, // url_get_file_handle
+#if (LIBAVCODEC_VERSION_MAJOR >= 57)
+    NULL, // url_get_multi_file_handle
+    NULL, // url_get_short_seek
+    NULL, // url_shutdown
+#endif
+    0, // priv_data_size
+    NULL, // priv_data_class
+    0, //flags
+    NULL //url_check
+#if (LIBAVCODEC_VERSION_MAJOR >= 57)
+    NULL, // url_check
+    NULL, // url_open_dir
+    NULL, // url_read_dir
+    NULL, // url_close_dir
+    NULL, // url_delete
+    NULL, // url_move
+    NULL, // default_whitelist
+#endif
 #endif
 };
 
