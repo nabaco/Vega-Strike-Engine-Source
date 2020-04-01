@@ -57,7 +57,7 @@ matrix:
 
 before_install:
   - sudo apt-get update -qq
-  - sudo apt-get -y install cmake g++ python2-dev libgl1-mesa-glx freeglut3-dev libopenal-dev libsdl-gfx1.2-dev libvorbis-dev libjpeg-dev libpng-dev libgtk2.0-dev
+  - sudo apt-get -y install cmake g++ python-dev libgl1-mesa-glx freeglut3-dev libopenal-dev libsdl-gfx1.2-dev libvorbis-dev libjpeg-dev libpng-dev libgtk2.0-dev
   - if [ "${CC}" == "gcc" ]; then pip install --user cpp-coveralls; fi
 
 script:
