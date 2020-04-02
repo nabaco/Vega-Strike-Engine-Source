@@ -1,6 +1,8 @@
 language: cpp
 
-os: linux
+os:
+    - linux
+    - osx
 
 dist: bionic
 
@@ -32,6 +34,18 @@ jobs:
 
 addons:
   apt:
+    packages:
+      - python-dev
+      - libgl1-mesa-glx
+      - freeglut3-dev
+      - libopenal-dev
+      - libsdl-gfx1.2-dev
+      - libvorbis-dev
+      - libjpeg-dev
+      - libpng-dev
+      - libgtk2.0-dev
+      - libboost-python-dev
+  homebrew:
     packages:
       - python-dev
       - libgl1-mesa-glx
