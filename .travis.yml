@@ -1,64 +1,31 @@
 sudo: required
-dist: bionic
+
 language: cpp
 
-matrix:
-  include:
-    - compiler: gcc
-      env:
-        C_COMPILER=gcc-4.8
-        CXX_COMPILER=g++-4.8
-    - compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-4.9
-      env:
-        C_COMPILER=gcc-4.9
-        CXX_COMPILER=g++-4.9
-    - compiler: gcc
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-          packages:
-            - g++-5
-      env:
-        C_COMPILER=gcc-5
-        CXX_COMPILER=g++-5
-    - compiler: clang
-      env:
-        C_COMPILER=clang-3.5
-        CXX_COMPILER=clang++-3.5
-    - compiler: clang
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-3.6
-          packages:
-            - clang-3.6
-      env:
-        C_COMPILER=clang-3.6
-        CXX_COMPILER=clang++-3.6
-    - compiler: clang
-      addons:
-        apt:
-          sources:
-            - ubuntu-toolchain-r-test
-            - llvm-toolchain-precise-3.7
-          packages:
-            - clang-3.7
-      env:
-        C_COMPILER=clang-3.7
-        CXX_COMPILER=clang++-3.7
+dist:
+    - bionic
+    - xenial
+    - trusty
 
-before_install:
-  - sudo apt-get update -qq
-  - sudo apt-get -y install cmake g++ python-dev libgl1-mesa-glx freeglut3-dev libopenal-dev libsdl-gfx1.2-dev libvorbis-dev libjpeg-dev libpng-dev libgtk2.0-dev
-  - if [ "${CC}" == "gcc" ]; then pip install --user cpp-coveralls; fi
+compiler:
+    - gcc
+    - clang
+
+addons:
+  apt:
+    packages:
+      - cmake
+      - g++
+      - python-dev
+      - libgl1-mesa-glx
+      - freeglut3-dev
+      - libopenal-dev
+      - libsdl-gfx1.2-dev
+      - libvorbis-dev
+      - libjpeg-dev
+      - libpng-dev
+      - libgtk2.0-dev
+      - libboost-dev
 
 script:
   - ./sh/vsbuild.sh
