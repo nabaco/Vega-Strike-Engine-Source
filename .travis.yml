@@ -47,16 +47,17 @@ addons:
       - libboost-python-dev
   homebrew:
     packages:
-      - python-dev
+      - python
       - libgl1-mesa-glx
-      - freeglut3-dev
-      - libopenal-dev
-      - libsdl-gfx1.2-dev
-      - libvorbis-dev
-      - libjpeg-dev
-      - libpng-dev
+      - freeglut3
+      - libopenal
+      - libsdl-gfx1.2
+      - libvorbis
+      - libjpeg
+      - libpng
       - libgtk2.0-dev
-      - libboost-python-dev
+      - libboost-python
+    update: true
 
 script:
   - ./sh/vsbuild.sh
