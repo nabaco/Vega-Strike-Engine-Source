@@ -28,6 +28,7 @@ jobs:
           name: "Ubuntu 16.04 LTS - Clang"
     allow_failures:
         - compiler: clang
+    fast_finish: true
 
 addons:
   apt:
