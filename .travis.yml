@@ -1,6 +1,8 @@
-sudo: required
-
 language: cpp
+
+os: linux
+
+dist: bionic
 
 compiler:
     - gcc
@@ -10,17 +12,24 @@ jobs:
     include:
         - os: linux
           dist: trusty
+          compiler: gcc
+          name: "Ubuntu 14.04 LTS - GCC"
+        - os: linux
+          dist: trusty
+          compiler: clang
+          name: "Ubuntu 14.04 LTS - Clang"
         - os: linux
           dist: xenial
+          compiler: gcc
+          name: "Ubuntu 16.04 LTS - GCC"
         - os: linux
-          dist: bionic
+          dist: xenial
+          compiler: clang
+          name: "Ubuntu 16.04 LTS - Clang"
 
 addons:
   apt:
     packages:
-      - cmake
-      - g++
-      - clang
       - python-dev
       - libgl1-mesa-glx
       - freeglut3-dev
