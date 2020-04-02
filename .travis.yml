@@ -2,20 +2,25 @@ sudo: required
 
 language: cpp
 
-dist:
-    - bionic
-    - xenial
-    - trusty
-
 compiler:
     - gcc
     - clang
+    
+jobs:
+    include:
+        - os: linux
+          dist: trusty
+        - os: linux
+          dist: xenial
+        - os: linux
+          dist: bionic
 
 addons:
   apt:
     packages:
       - cmake
       - g++
+      - clang
       - python-dev
       - libgl1-mesa-glx
       - freeglut3-dev
