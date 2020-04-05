@@ -197,6 +197,7 @@ else (GTK2_LIBRARIES AND GTK2_INCLUDE_DIRS)
     find_library(GTK2_GTK_LIBRARY
       NAMES
         gtk-x11-2.0
+        gtk-2.0
       PATHS
         ${_GTK2LinkDir}
         /usr/lib
