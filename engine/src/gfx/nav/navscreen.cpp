@@ -1770,13 +1770,13 @@ void NavigationSystem::TranslateCoordinates( QVector &pos,
     // as well as to display system names and make systems
     // highlight their names on mouse hover
     // and also make them clickable for setting jump routes
-    float itemscale = CalculatePerspectiveAdjustment(
-        zscale,
-        zdistance,
-        pos,
-        pos_flat,
-        system_item_scale_temp,
-        system_not_galaxy );
+    //float itemscale = CalculatePerspectiveAdjustment(
+    //    zscale,
+    //    zdistance,
+    //    pos,
+    //    pos_flat,
+    //    system_item_scale_temp,
+    //    system_not_galaxy );
 
     //TRANSLATE INTO SCREEN DISPLAY COORDINATES
     //**********************************
