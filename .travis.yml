@@ -1,66 +1,47 @@
 language: cpp
 os:
- - linux
- - osx
+ - windows
+ 
+before_install:
+  - cd ../vcpkg
+  # Check if cache was loaded. If yes, update it, otherwise clone a fresh copy
+#  - test -d .git && { PREV="$(git rev-parse HEAD)" && git pull } || git clone https://github.com/Microsoft/vcpkg .
+  - test -d .git && git pull || git clone https://github.com/Microsoft/vcpkg .
+  # Update only if there's something new
+#  - test "$PREV" == "$(git rev-parse HEAD)" || ./bootstrap-vcpkg.bat
+  - ./bootstrap-vcpkg.bat
+  - export VCPKG="$PWD"
+  - cd -
 
-# When updating be sure to add a section
-# to the matrix to cover the distro
-dist: bionic
+install:
+  - $VCPKG/vcpkg install python2:x64-windows
+    #- $travis_wait 60 VCPKG/vcpkg install python3:x64-windows
+  - $VCPKG/vcpkg install gtk:x64-windows
+  - $VCPKG/vcpkg install libpng:x64-windows
+  - $VCPKG/vcpkg install libjpeg-turbo:x64-windows
+  - $VCPKG/vcpkg install freeglut:x64-windows
+  - $VCPKG/vcpkg install sdl1:x64-windows
+  - $VCPKG/vcpkg install openal-soft:x64-windows
+  - $VCPKG/vcpkg install libvorbis:x64-windows
+    #- travis_wait 60 $VCPKG/vcpkg install boost:x64-windows
 
-compiler:
-    - gcc
-    - clang
-
-jobs:
-    include:
-        - os: linux
-          dist: xenial
-          compiler: gcc
-          name: "Ubuntu 16.04 LTS - GCC"
-        - os: linux
-          dist: xenial
-          compiler: clang
-          name: "Ubuntu 16.04 LTS - Clang"
-        - os: osx
-          osx_image: xcode11.3
-    allow_failures:
-        - os: osx
-    fast_finish: true
-
-addons:
-  apt:
-    packages:
-      - python-dev
-      - libgl1-mesa-glx
-      - freeglut3-dev
-      - libopenal-dev
-      - libsdl-gfx1.2-dev
-      - libvorbis-dev
-      - libjpeg-dev
-      - libpng-dev
-      - libgtk2.0-dev
-      - libboost-python-dev
-      - libboost-log-dev
-  homebrew:
-     update: true
-     packages:
-      - mesa
-      - openal-soft
-      - sdl
-      - libvorbis
-      - jpeg
-      - libpng
-      - gtk+
-      - gtkglext
-      - boost-python
+before_script:
+    - mkdir -p ext
+    - curl https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.zip > boost.zip
+    - Expand-Archive boost.zip -DestinationPath ext/boost
 
 script:
-  - ./sh/vsbuild.sh
+  - VMAKE="$VCPKG/scripts/buildsystems/vcpkg.cmake"
+  - mkdir build && cd build
+  - echo $VMAKE
+  - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="$VMAKE" -G "Visual Studio 15 2017 Win64" ../engine
+  - cmake --build .
+  - mkdir ../bin
+  - cp vegastrike ../bin
+  - cp setup/vssetup ../bin
+  - cp objconv/mesh_tool ../bin
 
-notifications:
-  webhooks:
-    urls:
-      - https://webhooks.gitter.im/e/1361517953461007f39a  # community room
-    on_success: change  # options: [always|never|change] default: always
-    on_failure: always  # options: [always|never|change] default: always
-    on_start: never     # options: [always|never|change] default: always
+cache:
+  directories:
+    - ../vcpkg
+    - ext
