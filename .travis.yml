@@ -17,6 +17,8 @@ install:
     #- $travis_wait 60 VCPKG/vcpkg install python3:x64-windows
   - $VCPKG/vcpkg install gtk:x64-windows
   - $VCPKG/vcpkg install libpng:x64-windows
+  - $VCPKG/vcpkg install mathc:x64-windows
+  - $VCPKG/vcpkg install mathgl:x64-windows
   - $VCPKG/vcpkg install libjpeg-turbo:x64-windows
   - $VCPKG/vcpkg install freeglut:x64-windows
   - $VCPKG/vcpkg install sdl1:x64-windows
