@@ -15,13 +15,13 @@ before_install:
 install:
   - $VCPKG/vcpkg install python2:x64-windows
     #- $travis_wait 60 VCPKG/vcpkg install python3:x64-windows
-    $VCPKG/vcpkg install gtk:x64-windows
-    $VCPKG/vcpkg install libpng:x64-windows
-    $VCPKG/vcpkg install libjpeg-turbo:x64-windows
-    $VCPKG/vcpkg install freeglut:x64-windows
-    $VCPKG/vcpkg install sdl1:x64-windows
-    $VCPKG/vcpkg install openal-soft:x64-windows
-    $VCPKG/vcpkg install libvorbis:x64-windows
+  - $VCPKG/vcpkg install gtk:x64-windows
+  - $VCPKG/vcpkg install libpng:x64-windows
+  - $VCPKG/vcpkg install libjpeg-turbo:x64-windows
+  - $VCPKG/vcpkg install freeglut:x64-windows
+  - $VCPKG/vcpkg install sdl1:x64-windows
+  - $VCPKG/vcpkg install openal-soft:x64-windows
+  - $VCPKG/vcpkg install libvorbis:x64-windows
     #- travis_wait 60 $VCPKG/vcpkg install boost:x64-windows
 
 before_script:
