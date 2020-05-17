@@ -955,8 +955,12 @@ IF(NOT BEOS)
 ELSE (NOT BEOS)
 	FIND_LIBRARY(UTIL_LIB network)
 ENDIF(NOT BEOS)
+IF(UTIL_LIB_FOUND)
+	SET(TST_LIBS ${TST_LIBS} ${UTIL_LIB})
+ELSE(UTIL_LIB_FOUND)
+	message("!! Util Lib not found")
+ENDIF(UTIL_LIB_FOUND)
 
-SET(TST_LIBS ${TST_LIBS} ${UTIL_LIB})
 
 # Still need to add CEGUI and OGRE find packages
 
