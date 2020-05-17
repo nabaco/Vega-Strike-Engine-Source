@@ -6,10 +6,10 @@ before_install:
   - cd ../vcpkg
   # Check if cache was loaded. If yes, update it, otherwise clone a fresh copy
 #  - test -d .git && { PREV="$(git rev-parse HEAD)" && git pull } || git clone https://github.com/Microsoft/vcpkg .
-  - test -d .git && git pull || git clone https://github.com/Microsoft/vcpkg .
+  - if test -e .cache; then PREV="$(git rev-parse HEAD)"; git pull; else git clone https://github.com/Microsoft/vcpkg .; fi
   # Update only if there's something new
-#  - test "$PREV" == "$(git rev-parse HEAD)" || ./bootstrap-vcpkg.bat
-  - ./bootstrap-vcpkg.bat
+  - if test "$PREV" != "$(git rev-parse HEAD)" || test ! -e .cache; then ./bootstrap-vcpkg.bat; fi
+  - touch .cache
   - export VCPKG="$PWD"
   - cd -
 
@@ -27,7 +27,8 @@ install:
 
 before_script:
     - mkdir -p ext
-    - wget https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.zip -o boost.zip
+    - wget https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.zip -o boost.zip -v --show-progress
+    - file boost.zip
     - unzip boost.zip -d ext/boost
 
 script:
