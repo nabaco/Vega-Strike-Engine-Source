@@ -6,10 +6,9 @@ before_install:
   - cd ../vcpkg
   # Check if cache was loaded. If yes, update it, otherwise clone a fresh copy
 #  - test -d .git && { PREV="$(git rev-parse HEAD)" && git pull } || git clone https://github.com/Microsoft/vcpkg .
-  - if test -e .cache; then PREV="$(git rev-parse HEAD)"; git pull; else git clone https://github.com/Microsoft/vcpkg .; fi
+  - if test -d .git; then PREV="$(git rev-parse HEAD)"; git pull; else git clone https://github.com/Microsoft/vcpkg .; fi
   # Update only if there's something new
-  - if test "$PREV" != "$(git rev-parse HEAD)" || test ! -e .cache; then ./bootstrap-vcpkg.bat; fi
-  - touch .cache
+  - if test "$PREV" != "$(git rev-parse HEAD)"; then ./bootstrap-vcpkg.bat; fi
   - export VCPKG="$PWD"
   - cd -
 
