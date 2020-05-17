@@ -25,10 +25,10 @@ install:
     #- travis_wait 60 $VCPKG/vcpkg install boost:x64-windows
 
 before_script:
-    - mkdir -p ext
-    - wget https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.zip -O boost.zip -v
-    - file boost.zip
-    - unzip boost.zip -d ext/
+    # No need to explicitly make the directory, since Travis-CI caching functionality will do it automatically
+    #- mkdir -p ext
+    - test ! -d ext/boost_1_72_0 && wget https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.zip -O boost.zip -q
+    - test ! -d ext/boost_1_72_0 && unzip boost.zip -q -d ext/
 
 script:
   - VMAKE="$VCPKG/scripts/buildsystems/vcpkg.cmake"
