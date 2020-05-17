@@ -638,10 +638,10 @@ ENDIF("${CMAKE_BUILD_TYPE}" STREQUAL "Debug")
 
 
 # Release Target block 
-SET(CMAKE_CXX_FLAGS_RELEASE  " ${BUILD_OPT} ${CPU_OPTS} ${DEFINES} -include config.h -pipe -std=c++11 -Wall -fvisibility=hidden" CACHE STRING
+SET(CMAKE_CXX_FLAGS_RELEASE  " ${BUILD_OPT} ${CPU_OPTS} ${DEFINES} -include config.h -pipe -std=c++11 -fvisibility=hidden" CACHE STRING
     "Flags used by the C++ compiler during release builds."
     FORCE)
-SET( CMAKE_C_FLAGS_RELEASE " ${BUILD_OPT} ${CPU_OPTS} ${DEFINES} -include config.h -pipe -Wall -Wno-unused-function -Wno-unused-variable -fvisibility=hidden" CACHE STRING
+SET( CMAKE_C_FLAGS_RELEASE " ${BUILD_OPT} ${CPU_OPTS} ${DEFINES} -include config.h -pipe -fvisibility=hidden" CACHE STRING
     "Flags used by the C compiler during release builds." 
     FORCE )
 SET(CMAKE_EXE_LINKER_FLAGS_RELEASE "-Bsymbolic" CACHE STRING "Release linker flags"
