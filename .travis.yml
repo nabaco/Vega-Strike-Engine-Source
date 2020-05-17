@@ -46,8 +46,8 @@ after_success:
   - cp objconv/mesh_tool ../bin
 
 after_failure:
-    - tail output.log
-    - tail error.log
+    - tail -n20 output.log
+    - tail -n20 error.log
     - grep error output.log -C5
     - grep error error.log -C5
 
