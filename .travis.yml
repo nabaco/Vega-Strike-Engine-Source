@@ -15,20 +15,20 @@ before_install:
 install:
   - $VCPKG/vcpkg install python2:x64-windows
     #- $travis_wait 60 VCPKG/vcpkg install python3:x64-windows
-  - $VCPKG/vcpkg install gtk:x64-windows
-  - $VCPKG/vcpkg install libpng:x64-windows
-  - $VCPKG/vcpkg install libjpeg-turbo:x64-windows
-  - $VCPKG/vcpkg install freeglut:x64-windows
-  - $VCPKG/vcpkg install sdl1:x64-windows
-  - $VCPKG/vcpkg install openal-soft:x64-windows
-  - $VCPKG/vcpkg install libvorbis:x64-windows
+    $VCPKG/vcpkg install gtk:x64-windows
+    $VCPKG/vcpkg install libpng:x64-windows
+    $VCPKG/vcpkg install libjpeg-turbo:x64-windows
+    $VCPKG/vcpkg install freeglut:x64-windows
+    $VCPKG/vcpkg install sdl1:x64-windows
+    $VCPKG/vcpkg install openal-soft:x64-windows
+    $VCPKG/vcpkg install libvorbis:x64-windows
     #- travis_wait 60 $VCPKG/vcpkg install boost:x64-windows
 
 before_script:
     # No need to explicitly make the directory, since Travis-CI caching functionality will do it automatically
     #- mkdir -p ext
-    - test ! -d ext/boost_1_72_0 && wget https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.zip -O boost.zip -q
-    - test ! -d ext/boost_1_72_0 && unzip -q boost.zip -d ext/
+    - test ! -d ext/boost && wget https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.zip -O boost.zip -q
+    - test ! -d ext/boost && unzip -q boost.zip -d ext/ && rm boost.zip
 
 script:
   - VMAKE="$VCPKG/scripts/buildsystems/vcpkg.cmake"
