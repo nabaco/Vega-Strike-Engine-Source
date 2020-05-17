@@ -28,7 +28,7 @@ before_script:
     # No need to explicitly make the directory, since Travis-CI caching functionality will do it automatically
     #- mkdir -p ext
     - test ! -d ext/boost_1_72_0 && wget https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.zip -O boost.zip -q
-    - test ! -d ext/boost_1_72_0 && unzip boost.zip -q -d ext/
+    - test ! -d ext/boost_1_72_0 && unzip -q boost.zip -d ext/
 
 script:
   - VMAKE="$VCPKG/scripts/buildsystems/vcpkg.cmake"
