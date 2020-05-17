@@ -36,14 +36,18 @@ script:
   - VMAKE="$VCPKG/scripts/buildsystems/vcpkg.cmake"
   - mkdir build && cd build
   - echo $VMAKE
-  - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="$VMAKE" -DUSE_SYSTEM_BOOST=OFF -G "Visual Studio 15 2017 Win64" ../engine
-  - cmake --build .
+  - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_VERBOSE_MAKEFILE:BOOL=OFF -DCMAKE_TOOLCHAIN_FILE="$VMAKE" -DUSE_SYSTEM_BOOST=OFF -G "Visual Studio 15 2017 Win64" ../engine
+  - cmake --build . > output.log 2>error.log
 
 after_success:
   - mkdir ../bin
   - cp vegastrike ../bin
   - cp setup/vssetup ../bin
   - cp objconv/mesh_tool ../bin
+
+after_failure:
+    - tail output.log
+    - tail error.log
 
 cache:
   directories:
