@@ -26,9 +26,9 @@ install:
 
 before_script:
     - mkdir -p ext
-    - wget https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.zip -o boost.zip -v --show-progress
+    - wget https://dl.bintray.com/boostorg/release/1.72.0/source/boost_1_72_0.zip -O boost.zip -v
     - file boost.zip
-    - unzip boost.zip -d ext/boost
+    - unzip boost.zip -d ext/
 
 script:
   - VMAKE="$VCPKG/scripts/buildsystems/vcpkg.cmake"
