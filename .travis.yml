@@ -23,7 +23,7 @@ install:
   - $VCPKG/vcpkg install openal-soft:x64-windows
   - $VCPKG/vcpkg install libvorbis:x64-windows
   - $VCPKG/vcpkg install mathc:x64-windows
-  - travis_wait 60 $VCPKG/vcpkg install mathgl:x64-windows
+    #- travis_wait 60 $VCPKG/vcpkg install mathgl:x64-windows
     #- travis_wait 60 $VCPKG/vcpkg install boost:x64-windows
 
 before_script:
