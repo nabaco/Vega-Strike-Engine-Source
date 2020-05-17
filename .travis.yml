@@ -35,11 +35,11 @@ script:
   - mkdir build && cd build
   - echo $VMAKE
   - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_TOOLCHAIN_FILE="$VMAKE" -DUSE_SYSTEM_BOOST=OFF -G "Visual Studio 15 2017 Win64" ../engine
-    cmake --build .
-    mkdir ../bin
-    cp vegastrike ../bin
-    cp setup/vssetup ../bin
-    cp objconv/mesh_tool ../bin
+  - cmake --build .
+  - mkdir ../bin
+  - cp vegastrike ../bin
+  - cp setup/vssetup ../bin
+  - cp objconv/mesh_tool ../bin
 
 cache:
   directories:
