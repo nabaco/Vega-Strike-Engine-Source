@@ -43,10 +43,11 @@ after_success:
   - cp objconv/mesh_tool ../bin
 
 after_failure:
-    - tail -n20 output.log
-    - tail -n20 error.log
-    - grep -wi error output.log -A2
-    - grep -wi error error.log -A2
+    - curl --upload-file 'output.log' 'https://paste.c-net.org/'
+    #- tail -n20 output.log
+    #- tail -n20 error.log
+    #- grep -wi error output.log -A2
+    #- grep -wi error error.log -A2
 
 cache:
   directories:
