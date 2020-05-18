@@ -35,10 +35,10 @@ public:
 ///This set inherits from the STL multiset, with a slight variation: The value is nonconst--that means you are allowed to change things but must not alter the key.
 ///This set inherits from the STL multiset, with a slight variation: You are allowed to update the key of a particular iterator that you have obtained.
 /** Note: T is the type that each element is pointing to. */
-template < class T, class _Compare = std::less< MutableShell< T > > >
-class KeyMutableSet : public std::multiset< MutableShell< T >, _Compare >
+template < class T, class _Compare = std::less< MutableShell< T > >, class _Allocator = std::allocator< MutableShell < T > > >
+class KeyMutableSet : public std::multiset< MutableShell< T >, _Compare, _Allocator >
 {
-    typedef std::multiset< MutableShell< T >, _Compare >SUPER;
+    typedef std::multiset< MutableShell< T >, _Compare, _Allocator>SUPER;
 public:
 /// This just checks the order of the set for testing purposes..
     void checkSet()
