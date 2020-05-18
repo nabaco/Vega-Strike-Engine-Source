@@ -43,7 +43,8 @@ after_success:
   - cp objconv/mesh_tool ../bin
 
 after_failure:
-    - curl --upload-file 'output.log' 'https://paste.c-net.org/'
+    - zip output.zip output.log
+    - curl --upload-file 'output.zip' 'https://paste.c-net.org/'
     #- tail -n20 output.log
     #- tail -n20 error.log
     #- grep -wi error output.log -A2
