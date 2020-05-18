@@ -23,7 +23,7 @@
 #include <assert.h>
 #include <iostream>
 #include <vector>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include "stardate.h"
 #include "lin_time.h"
 #include "vsfilesystem.h"
@@ -35,7 +35,7 @@ using std::endl;
 using std::vector;
 
 class Faction;
-extern vector< boost::shared_ptr<Faction> >factions;
+extern vector< std::shared_ptr<Faction> >factions;
 
 StarDate::StarDate()
 {

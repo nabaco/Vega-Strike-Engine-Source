@@ -8,7 +8,7 @@
 #include <boost/enable_shared_from_this.hpp>
 
 // Some compilers don't like template typedefs
-#define SharedPtr boost::shared_ptr
+#define SharedPtr std::shared_ptr
 #define WeakPtr boost::weak_ptr
 #define AutoPtr boost::scoped_ptr
 #define SharedFromThis boost::enable_shared_from_this

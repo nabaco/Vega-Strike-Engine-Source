@@ -24,7 +24,7 @@ Faction::~Faction()
 
 Texture* FactionUtil::getForceLogo( int faction )
 {
-    boost::shared_ptr<Faction> fac = factions[faction];
+    std::shared_ptr<Faction> fac = factions[faction];
     if (fac->logo == 0) {
         if ( !fac->logoName.empty() ) {
             if ( !fac->logoAlphaName.empty() )
@@ -41,7 +41,7 @@ Texture* FactionUtil::getForceLogo( int faction )
 //fixme--add squads in here
 Texture* FactionUtil::getSquadLogo( int faction )
 {
-    boost::shared_ptr<Faction> fac = factions[faction];
+    std::shared_ptr<Faction> fac = factions[faction];
     if (fac->secondaryLogo == 0) {
         if ( !fac->secondaryLogoName.empty() ) {
             if ( !fac->secondaryLogoAlphaName.empty() )

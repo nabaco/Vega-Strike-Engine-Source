@@ -2,7 +2,7 @@
 #define __FACTIONGENERIC_H
 #include "config.h"
 #include <string>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 //#include <gnuhash.h>
 
 #include "xml_support.h"
@@ -34,7 +34,7 @@ public:
         stats;
         ///A value between 0 and 1 indicating my attitude towards index
         float relationship;
-        boost::shared_ptr<FSM> conversation;  //a conversation any two factions can have
+        std::shared_ptr<FSM> conversation;  //a conversation any two factions can have
         faction_stuff() : relationship(0.0) {}
     };
 public:
@@ -68,12 +68,12 @@ public:
             ,  base( CEITHER ) {}
     };
     std::vector< comm_face_t >     comm_faces;
-    std::vector< boost::shared_ptr<Animation> >explosion;
+    std::vector< std::shared_ptr<Animation> >explosion;
     std::vector< std::string >     explosion_name;
     std::vector< unsigned char >   comm_face_sex;
     MapStringFloat ship_relation_modifier;
     // This should be a std::auto_ptr, but then "cmd/unit.h" has to be included
-    boost::shared_ptr<Unit> contraband;
+    std::shared_ptr<Unit> contraband;
 ///Figures out the relationships of each faction with each other
     static void ParseAllAllies( /*Universe * thisuni*/ );
     void ParseAllies( /*Universe * thisuni,*/ unsigned int whichfaction );
@@ -94,7 +94,7 @@ public:
     ~Faction(); //destructor
 };
 
-extern std::vector< boost::shared_ptr<Faction> >factions;   //the factions
+extern std::vector< std::shared_ptr<Faction> >factions;   //the factions
 
 namespace FactionUtil
 {

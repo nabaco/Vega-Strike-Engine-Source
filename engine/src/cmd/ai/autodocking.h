@@ -4,7 +4,7 @@
 #define VEGASTRIKE_CMD_AI_AUTODOCKING_H
 
 #include <deque>
-#include <boost/shared_ptr.hpp>
+#include <memory>
 #include "cmd/ai/order.h"
 #include "gfx/vec.h"
 

@@ -115,7 +115,7 @@ void Faction::beginElement( void *userData, const XML_Char *names, const XML_Cha
             switch ( attribute_map.lookup( (*iter).name ) )
             {
             case NAME:
-                factions.back()->explosion.push_back( boost::shared_ptr<Animation>(FactionUtil::createAnimation( (*iter).value.c_str() )) );
+                factions.back()->explosion.push_back( std::shared_ptr<Animation>(FactionUtil::createAnimation( (*iter).value.c_str() )) );
                 factions.back()->explosion_name.push_back( (*iter).value );
                 break;
             }
@@ -179,7 +179,7 @@ void Faction::beginElement( void *userData, const XML_Char *names, const XML_Cha
     case FACTION:
         assert( unitlevel == 1 );
         unitlevel++;
-        factions.push_back(boost::shared_ptr<Faction>(new Faction()));
+        factions.push_back(std::shared_ptr<Faction>(new Faction()));
         assert( factions.size() > 0 );
         contrabandlists.push_back( "" );
         //factions[factions.size()-1];
@@ -310,20 +310,20 @@ void Faction::LoadXML( const char *filename, char *xmlbuffer, int buflength )
     ParseAllAllies();
 
     // Results are cached to avoid looking for too many files
-    typedef vsUMap< string, boost::shared_ptr<FSM> > Cache;
+    typedef vsUMap< string, std::shared_ptr<FSM> > Cache;
     Cache cache;
 
     std::string fileSuffix(".xml");
     std::string neutralName("neutral");
-    boost::shared_ptr<FSM> neutralComm;
+    std::shared_ptr<FSM> neutralComm;
     neutralComm.reset(new FSM(neutralName + fileSuffix));
     cache.insert(Cache::value_type(neutralName, neutralComm));
 
     for (unsigned int i = 0; i < factions.size(); i++)
     {
-        boost::shared_ptr<Faction> fact = factions[i];
+        std::shared_ptr<Faction> fact = factions[i];
         std::string myCommFile = fact->factionname + fileSuffix;
-        boost::shared_ptr<FSM> myComm;
+        std::shared_ptr<FSM> myComm;
         Cache::iterator it = cache.find(myCommFile);
         if ( it != cache.end() )
         {
@@ -348,7 +348,7 @@ void Faction::LoadXML( const char *filename, char *xmlbuffer, int buflength )
                 + std::string("to")
                 + factions[j]->factionname
                 + fileSuffix;
-            boost::shared_ptr<FSM> jointComm;
+            std::shared_ptr<FSM> jointComm;
             if (!fact->faction[j].conversation)
             {
                 it = cache.find(jointCommFile);
