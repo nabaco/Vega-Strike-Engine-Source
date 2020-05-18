@@ -7,14 +7,6 @@ extern int PNG_HAS_PALETTE;
 extern int PNG_HAS_COLOR;
 extern int PNG_HAS_ALPHA;
 
-
-
-#ifndef WIN32
-typedef unsigned int   DWORD;
-typedef int            LONG;
-typedef unsigned short WORD;
-typedef unsigned char  BYTE;
-
 #if !defined (_WIN32) || defined (__CYGWIN__) || defined (__MINGW32__)
   #define LOCALCONST_DECL( Type, cName, Value ) static const Type cName = Value;
   #define LOCALCONST_DEF( Class, Type, cName, Value )
@@ -22,6 +14,12 @@ typedef unsigned char  BYTE;
   #define LOCALCONST_DECL( Type, cName, Value ) static Type cName;
   #define LOCALCONST_DEF( Class, Type, cName, Value ) Type Class::cName = Value;
 #endif
+
+#ifndef WIN32
+typedef unsigned int   DWORD;
+typedef int            LONG;
+typedef unsigned short WORD;
+typedef unsigned char  BYTE;
 
 /**
  * Windows Bitmap format.
