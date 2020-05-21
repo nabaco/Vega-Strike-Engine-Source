@@ -38,7 +38,7 @@ public:
 template < class T, class _Compare = std::less< MutableShell< T > >, class _Allocator = std::allocator< MutableShell < T > > >
 class KeyMutableSet : public std::multiset< MutableShell< T >, _Compare, _Allocator >
 {
-    typedef std::multiset< MutableShell< T >, _Compare, _Allocator>SUPER;
+    typedef std::multiset< MutableShell< T >, std::less< MutableShell< T > >, std::allocator< MutableShell < T > >>SUPER;
 public:
 /// This just checks the order of the set for testing purposes..
     void checkSet()
