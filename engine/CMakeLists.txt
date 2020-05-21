@@ -613,12 +613,19 @@ ELSE(ENABLE_PIE)
   link_libraries("-no-pie")
 ENDIF(ENABLE_PIE)
 
+if (MSVC)
+    # warning level 4 and all warnings as errors
+    add_compile_options()
+else()
+    # lots of warnings and all warnings as errors
+    add_compile_options(-Wall -Wextra -pedantic -Werror)
+endif()
 
 # Debug target block. 
-SET(CMAKE_CXX_FLAGS_DEBUG " ${BUILD_OPT} ${CPU_OPTS} ${DEFINES} -include config.h -pipe -g2 -std=c++11 -Wall -fvisibility=hidden" CACHE STRING
+SET(CMAKE_CXX_FLAGS_DEBUG " ${BUILD_OPT} ${CPU_OPTS} ${DEFINES}" CACHE STRING
     "Flags used by the C++ compiler during debug builds."
      FORCE )
-SET( CMAKE_C_FLAGS_DEBUG "  ${BUILD_OPT} ${CPU_OPTS} ${DEFINES} -include config.h -pipe -g2 -Wall -Wno-unused-function -Wno-unused-variable -fvisibility=hidden" CACHE STRING
+SET( CMAKE_C_FLAGS_DEBUG "  ${BUILD_OPT} ${CPU_OPTS} ${DEFINES}" CACHE STRING
     "Flags used by the C compiler during debug builds."
      FORCE )
 SET( CMAKE_EXE_LINKER_FLAGS_DEBUG
