@@ -29,7 +29,6 @@
 #include "python/python_compile.h"
 #include "cmd/ai/fire.h"
 #include <memory>
-#include "init.h"
 #define PYTHONCALLBACK(rtype, ptr, str) \
   boost::python::call_method<rtype>(ptr, str)
 #define PYTHONCALLBACK2(rtype, ptr, str, str2) \

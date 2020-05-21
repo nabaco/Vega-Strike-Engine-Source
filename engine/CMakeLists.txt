@@ -615,7 +615,7 @@ ENDIF(ENABLE_PIE)
 
 if (MSVC)
     # warning level 4 and all warnings as errors
-    add_compile_options()
+    add_compile_options(-DHAVE_PYTHON=1)
 else()
     # lots of warnings and all warnings as errors
     add_compile_options(-Wall -Wextra -pedantic -Werror)
