@@ -12,16 +12,16 @@ before_install:
   - cd -
 
 install:
-  - $VCPKG/vcpkg install python2:x64-windows
-    #- $travis_wait 60 VCPKG/vcpkg install python3:x64-windows
-  - $VCPKG/vcpkg install gtk:x64-windows
-  - $VCPKG/vcpkg install libpng:x64-windows
-  - $VCPKG/vcpkg install libjpeg-turbo:x64-windows
-  - $VCPKG/vcpkg install freeglut:x64-windows
-  - $VCPKG/vcpkg install sdl1:x64-windows
-  - $VCPKG/vcpkg install openal-soft:x64-windows
-  - $VCPKG/vcpkg install libvorbis:x64-windows
-    #- travis_wait 60 $VCPKG/vcpkg install boost:x64-windows
+  - $VCPKG/vcpkg install python2:x86-windows
+    #- $travis_wait 60 VCPKG/vcpkg install python3:x86-windows
+  - $VCPKG/vcpkg install gtk:x86-windows
+  - $VCPKG/vcpkg install libpng:x86-windows
+  - $VCPKG/vcpkg install libjpeg-turbo:x86-windows
+  - $VCPKG/vcpkg install freeglut:x86-windows
+  - $VCPKG/vcpkg install sdl1:x86-windows
+  - $VCPKG/vcpkg install openal-soft:x86-windows
+  - $VCPKG/vcpkg install libvorbis:x86-windows
+    #- travis_wait 60 $VCPKG/vcpkg install boost:x86-windows
 
 before_script:
     # No need to explicitly make the directory, since Travis-CI caching functionality will do it automatically
@@ -33,18 +33,18 @@ script:
   - VMAKE="$VCPKG/scripts/buildsystems/vcpkg.cmake"
   - mkdir build && cd build
   - echo $VMAKE
-  - cmake -DCMAKE_BUILD_TYPE=Release -DCMAKE_VERBOSE_MAKEFILE:BOOL=OFF -DCMAKE_TOOLCHAIN_FILE="$VMAKE" -DUSE_SYSTEM_BOOST=OFF -G "Visual Studio 15 2017 Win64" ../engine
+  - cmake -DCMAKE_BUILD_TYPE=Debug -A Win32 -DCMAKE_VERBOSE_MAKEFILE:BOOL=OFF -DCMAKE_TOOLCHAIN_FILE="$VMAKE" -DUSE_SYSTEM_BOOST=OFF -G "Visual Studio 15 2017 Win32" ../engine
   - cmake --build . > output.log 2>error.log
 
 after_success:
   - mkdir ../bin
-  - cp vegastrike ../bin
-  - cp setup/vssetup ../bin
-  - cp objconv/mesh_tool ../bin
+  - cp vegastrike.exe ../bin
+  - cp setup/vssetup.exe ../bin
+  - cp objconv/mesh_tool.exe ../bin
 
 after_failure:
-    - zip output.zip output.log
-    - curl --upload-file 'output.zip' 'https://paste.c-net.org/'
+    #- zip output.zip output.log
+    - curl --upload-file 'output.log' 'https://paste.c-net.org/'
     #- tail -n20 output.log
     #- tail -n20 error.log
     #- grep -wi error output.log -A2
