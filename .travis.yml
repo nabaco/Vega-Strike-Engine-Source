@@ -33,8 +33,8 @@ script:
   - VMAKE="$VCPKG/scripts/buildsystems/vcpkg.cmake"
   - mkdir build && cd build
   - echo $VMAKE
-  - cmake -DCMAKE_BUILD_TYPE=Debug -A Win32 -DCMAKE_VERBOSE_MAKEFILE:BOOL=OFF -DCMAKE_TOOLCHAIN_FILE="$VMAKE" -DUSE_SYSTEM_BOOST=OFF -G "Visual Studio 15 2017 Win32" ../engine
-  - cmake --build . > output.log 2>error.log
+  - cmake -DCMAKE_BUILD_TYPE=Debug -A Win32 -DCMAKE_VERBOSE_MAKEFILE:BOOL=OFF -DCMAKE_TOOLCHAIN_FILE="$VMAKE" -DUSE_SYSTEM_BOOST=OFF -G "Visual Studio 16 2019" ../engine
+  - cmake --build . #> output.log 2>error.log
 
 after_success:
   - mkdir ../bin
@@ -44,7 +44,7 @@ after_success:
 
 after_failure:
     #- zip output.zip output.log
-    - curl --upload-file 'output.log' 'https://paste.c-net.org/'
+    #- curl --upload-file 'output.log' 'https://paste.c-net.org/'
     #- tail -n20 output.log
     #- tail -n20 error.log
     #- grep -wi error output.log -A2
