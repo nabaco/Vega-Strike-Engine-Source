@@ -874,7 +874,11 @@ ELSE(JPEG_FOUND)
 ENDIF(JPEG_FOUND)
 
 #Find PNG
-find_package(libpng REQUIRED)
+if(WIN32)
+    find_package(libpng REQUIRED)
+else()
+    find_package(PNG REQUIRED)
+endif()
 IF(PNG_FOUND)
 	SET(TEST_INCLUDES ${TST_INCLUDES} ${PNG_INCLUDE_DIRS})
 	SET(TST_LIBS ${TST_LIBS} ${PNG_LIBRARIES})

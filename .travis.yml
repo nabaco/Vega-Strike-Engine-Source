@@ -5,8 +5,10 @@ jobs:
         - os: windows
           env: VCPKG_DEFAULT_TRIPLET=x86-windows EXT=bat BIN_EXT=exe
         - os: osx
+          osx_image: xcode11.4
           env: VCPKG_DEFAULT_TRIPLET=x86-osx EXT=sh
         - os: linux
+          dist: bionic
           env: VCPKG_DEFAULT_TRIPLET=x86-linux EXT=sh
 
 before_install:
