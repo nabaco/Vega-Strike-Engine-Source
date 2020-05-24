@@ -4,7 +4,6 @@
 #if defined (_WIN32) && !defined (__CYGWIN__)
 #include <Shlobj.h>
 #include <direct.h>
-#include <config.h>
 #include <string.h>
 #ifndef NOMINMAX
 #define NOMINMAX

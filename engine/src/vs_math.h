@@ -21,7 +21,6 @@
 #ifndef _VS_MATH_H_
 #define _VS_MATH_H_
 
-#include <config.h>
 
 #include "macosx_math.h"
 #include <math.h>

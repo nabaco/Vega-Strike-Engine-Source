@@ -60,7 +60,6 @@ using VSFileSystem::SaveFile;
 //for directory thing
 #if defined (_WIN32) && !defined (__CYGWIN__)
 #include <direct.h>
-#include <config.h>
 #include <string.h>
 #ifndef NOMINMAX
 #define NOMINMAX
