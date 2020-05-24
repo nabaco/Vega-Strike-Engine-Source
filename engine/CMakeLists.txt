@@ -615,10 +615,10 @@ ENDIF(ENABLE_PIE)
 
 if (MSVC)
     # warning level 4 and all warnings as errors
-	add_compile_options(/W0 /FI config.h)
+    add_compile_options(/W0 /FI ${vsUTCS_BINARY_DIR}/config.h)
 else()
     # lots of warnings and all warnings as errors
-    add_compile_options(-Wall -Wextra -pedantic -Werror)
+    add_compile_options(-include config.h)
 endif()
 
 # Debug target block. 
