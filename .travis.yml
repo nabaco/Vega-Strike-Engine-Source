@@ -21,7 +21,7 @@ before_install:
   - cd -
 
 install:
-  - $VCPKG/vcpkg install python2
+  #- $VCPKG/vcpkg install python2
     #- $travis_wait 60 VCPKG/vcpkg install python3
   - $VCPKG/vcpkg install gtk
   - $VCPKG/vcpkg install libpng
@@ -42,7 +42,7 @@ script:
   - VMAKE="$VCPKG/scripts/buildsystems/vcpkg.cmake"
   - mkdir build && cd build
   - echo $VMAKE
-  - cmake -DCMAKE_BUILD_TYPE=Debug -A Win32 -DCMAKE_VERBOSE_MAKEFILE:BOOL=OFF -DCMAKE_TOOLCHAIN_FILE="$VMAKE" -DUSE_SYSTEM_BOOST=OFF -G "Visual Studio 15 2017" ../engine
+  - cmake -DCMAKE_BUILD_TYPE=Debug -A Win32 -DCMAKE_VERBOSE_MAKEFILE:BOOL=OFF -DCMAKE_TOOLCHAIN_FILE="$VMAKE" -DUSE_SYSTEM_BOOST=OFF -DUSE_PYTHON_3=ON -G "Visual Studio 15 2017" ../engine
   - cmake --build . #> output.log 2>error.log
 
 after_success:
