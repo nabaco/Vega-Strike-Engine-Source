@@ -4,7 +4,7 @@
 #include <unordered_map>
 
 #define vsUMap     std::unordered_map
-#define vsHashComp std::hash_compare
+#define vsHashComp std::vs_hash_compare
 #define vsHash     std::hash
 class Unit;
 
@@ -52,13 +52,13 @@ namespace std
 			}
 		};
 	//Minimum declaration needed by SharedPool.h
-	/* template < class Key, class Traits = std::less< Key > > */
-	/* 	class hash_compare */
-	/* 	{ */
-	/* 		public: */
-	/* 			static const size_t bucket_size = 4; */
-	/* 			static const size_t min_buckets = 8; */
-	/* 	}; */
+	template < class Key, class Traits = std::less< Key > >
+		class vs_hash_compare
+		{
+			public:
+				static const size_t bucket_size = 4;
+				static const size_t min_buckets = 8;
+		};
 }
 
 #endif //def _GNUHASH_H_
