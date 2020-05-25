@@ -45,7 +45,7 @@ static float CalculateBalancedDecelTime( float l, float v, float &F, float mass 
         v = -v;
         F = -F;
     }
-    double temp = .5*v*v+(l-v*SIMULATION_ATOM*(.5)+.5*SIMULATION_ATOM*SIMULATION_ATOM*accel)*accel;
+    float temp = .5f*v*v+(l-v*SIMULATION_ATOM*(.5f)+.5f*SIMULATION_ATOM*SIMULATION_ATOM*accel)*accel;
     if (temp < 0)
         temp = 0;
     return ( -v+sqrtf( temp ) )/accel;
@@ -76,7 +76,7 @@ static float CalculateDecelTime( float l, float v, float &F, float D, float mass
         F     = -D;
     }
     float vsqr   = v*v;
-    float fourac = 2*accel*( (.5*v*v/decel)-v*SIMULATION_ATOM*.5-l )/(1+accel/decel);
+    float fourac = 2.0f*accel*( (.5f*v*v/decel)-v*SIMULATION_ATOM*.5f-l )/(1.0f+accel/decel);
     if (fourac > vsqr) return FLT_MAX;       //FIXME avoid sqrt negative  not sure if this is right
 
     return ( -v+sqrtf( vsqr-fourac ) )/accel;
@@ -112,7 +112,7 @@ bool MoveToParent::OptimizeSpeed( Unit *parent, float v, float &a, float max_spe
     return false;
 }
 
-float MOVETHRESHOLD = SIMULATION_ATOM/1.9;
+float MOVETHRESHOLD = SIMULATION_ATOM/1.9f;
 bool MoveToParent::Done( const Vector &ang_vel )
 {
     if (fabs( ang_vel.i ) < THRESHOLD
@@ -254,7 +254,7 @@ void ChangeHeading::TurnToward( float atancalc, float ang_veli, float &torquei )
     if (t < 0) {
         //if it can't make it: try the other way
         torquei = fabs( torquei );         //copy sign again
-        t = CalculateBalancedDecelTime( atancalc > 0 ? atancalc-2*PI : atancalc+2*PI, ang_veli, torquei, parent->GetMoment() );
+        t = CalculateBalancedDecelTime( atancalc > 0 ? atancalc-2.0f*PI : atancalc+2.0f*PI, ang_veli, torquei, parent->GetMoment() );
     }
     if (t > 0) {
         if (t < SIMULATION_ATOM)
@@ -268,7 +268,7 @@ void ChangeHeading::SetDest( const QVector &target )
     final_heading = target;
     ResetDone();
 }
-float TURNTHRESHOLD = SIMULATION_ATOM/1.9;
+float TURNTHRESHOLD = SIMULATION_ATOM/1.9f;
 ///if velocity is lower than threshold
 bool ChangeHeading::Done( const Vector &ang_vel )
 {
@@ -545,7 +545,7 @@ void AutoLongHaul::Execute()
     static float warp_orbit_multiplier  =
         XMLSupport::parse_float( vs_config->getVariable( "physics", "warp_orbit_multiplier", "4" ) );
     static float warp_behind_angle =
-        cos( 3.1415926536*XMLSupport::parse_float( vs_config->getVariable( "physics", "warp_behind_angle", "150" ) )/180. );
+        cos( 3.1415926536f*XMLSupport::parse_float( vs_config->getVariable( "physics", "warp_behind_angle", "150" ) )/180.0f );
     QVector myposition  = parent->isSubUnit() ? parent->Position() : parent->LocalPosition();     //get unit pos
     QVector destination = target->isSubUnit() ? target->Position() : target->LocalPosition();     //get destination
     QVector destinationdirection = (destination-myposition);       //find vector from us to destination
@@ -570,8 +570,8 @@ void AutoLongHaul::Execute()
             QVector obstacledirection = (obstacle->LocalPosition()-myposition);               //find vector from us to obstacle
             double  obstacledistance  = obstacledirection.Magnitude();
 
-            obstacledirection = obstacledirection*(1./obstacledistance);               //normalize the obstacle direction as well
-            float   angle = obstacledirection.Dot( destinationdirection );
+            obstacledirection = obstacledirection*(1/obstacledistance);               //normalize the obstacle direction as well
+            double   angle = obstacledirection.Dot( destinationdirection );
             if (       (obstacledistance-obstacle->rSize() < destinationdistance-target->rSize())
                     && (angle > warp_behind_angle)) {
                 StraightToTarget = false;
@@ -605,14 +605,14 @@ void AutoLongHaul::Execute()
         mymin( parent->limits.lateral, mymin( parent->limits.vertical, mymin( parent->limits.forward, parent->limits.retro ) ) );
     if (mass) minaccel /= mass;
     QVector cfacing = parent->cumulative_transformation_matrix.getR();         //velocity.Cast();
-    float   speed   = cfacing.Magnitude();
+    double   speed   = cfacing.Magnitude();
     if ( StraightToTarget && useJitteryAutopilot( parent, target, minaccel ) ) {
         if (speed > .01)
             cfacing = cfacing*(1./speed);
         static float dotLimit =
-            cos( 3.1415926536*XMLSupport::parse_float( vs_config->getVariable( "physics",
+            cos( 3.1415926536f*XMLSupport::parse_float( vs_config->getVariable( "physics",
                                                                                "autopilot_spec_lining_up_angle",
-                                                                               "3" ) )/180. );
+                                                                               "3" ) )/180.0f );
         if (cfacing.Dot( destinationdirection ) < dotLimit)          //if wanting to face target but overshooting.
             deactivatewarp = true;              //turn off drive
     }
@@ -678,7 +678,7 @@ void FaceDirection::SetParent( Unit *un )
         AttachSelfOrder( un->getFlightgroup()->leader.GetUnit() );
     ChangeHeading::SetParent( un );
 }
-FaceDirection::FaceDirection( float dist, bool fini, int accuracy ) : ChangeHeading( QVector( 0, 0, 1 ), accuracy )
+FaceDirection::FaceDirection( double dist, bool fini, int accuracy ) : ChangeHeading( QVector( 0, 0, 1 ), accuracy )
     , finish( fini )
 {
     type       = FACING;

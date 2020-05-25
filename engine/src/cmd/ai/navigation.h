@@ -7,8 +7,8 @@
 
 namespace Orders
 {
-const float bleed_threshold = 0.0001;
-const float THRESHOLD = 0.01;
+const float bleed_threshold = 0.0001f;
+const float THRESHOLD = 0.01f;
 
 /**
  * The moveto order attempts to calculate the best way to apply thrust (within the computer bound limits) to get a starship to place B and stopped.
@@ -201,7 +201,7 @@ class FaceDirection : public ChangeHeading
 {
     bool  finish;
     float dist;
-public: FaceDirection( float distToMatchFacing, bool fini = false, int accuracy = 3 );
+public: FaceDirection( double distToMatchFacing, bool fini = false, int accuracy = 3 );
     virtual void SetParent( Unit *parent1 );
     virtual void Execute();
     virtual string getOrderDescription()

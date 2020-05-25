@@ -33,7 +33,7 @@ struct AIEvresult
                 float timetointerrupt,
                 float priority,
                 const std::string &aiscript );
-    bool Eval( const float eval ) const
+    bool Eval( const double eval ) const
     {
         if (eval >= min)
             if (eval < max)

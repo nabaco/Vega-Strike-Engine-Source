@@ -55,14 +55,14 @@ struct weapon_info
         PulseSpeed     = 15;
         RadialSpeed    = 1;
         Range          = 100;
-        Radius         = .5;
-        Damage         = 1.8;
+        Radius         = .5f;
+        Damage         = 1.8f;
         PhaseDamage    = 0;
         Stability      = 60;
-        Longrange      = .5;
+        Longrange      = .5f;
         LockTime       = 0;
         EnergyRate     = 18;
-        RefireRate     = .2;
+        RefireRate     = .2f;
         sound          = -1;
         volume         = 0;
     }

@@ -183,7 +183,7 @@ static AIEvents::ElemAttrMap * getProperScript( Unit *me, Unit *targ, bool inter
                                             personalityseed );
 }
 
-static float aggressivity = 2.01;
+static float aggressivity = 2.01f;
 static int   randomtemp;
 AggressiveAI::AggressiveAI( const char *filename, Unit *target ) : FireAt()
     , logic( getProperScript( NULL, NULL, "default", randomtemp = rand() ) )
@@ -270,7 +270,7 @@ bool AggressiveAI::ExecuteLogicItem( const AIEvents::AIEvresult &item )
 
 bool AggressiveAI::ProcessLogicItem( const AIEvents::AIEvresult &item )
 {
-    float value = 0.0;
+    double value = 0.0;
 
     static float game_speed = XMLSupport::parse_float( vs_config->getVariable( "physics", "game_speed", "1" ) );
     switch ( abs( item.type ) )
@@ -285,7 +285,7 @@ bool AggressiveAI::ProcessLogicItem( const AIEvents::AIEvresult &item )
                 Vector PosDifference = targ->Position().Cast()-parent->Position().Cast();
                 float  pdmag = PosDifference.Magnitude();
                 value = ( pdmag-parent->rSize()-targ->rSize() );
-                float  myvel = PosDifference.Dot( parent->GetVelocity()-targ->GetVelocity() )/value;        ///pdmag;
+                double  myvel = PosDifference.Dot( parent->GetVelocity()-targ->GetVelocity() )/value;        ///pdmag;
                 if (myvel > 0)
                     value -= myvel*myvel/( 2*( parent->Limits().retro/parent->GetMass() ) );
             } else {
@@ -515,12 +515,12 @@ Unit * GetThreat( Unit *parent, Unit *leader )
     Unit *th = NULL;
     Unit *un = NULL;
     bool  targetted = false;
-    float mindist   = FLT_MAX;
+    double mindist   = DBL_MAX;
     for (un_iter ui = _Universe->activeStarSystem()->getUnitList().createIterator();
          (un = *ui);
          ++ui)
         if (parent->getRelation( un ) < 0) {
-            float d = ( un->Position()-leader->Position() ).Magnitude();
+            double d = ( un->Position()-leader->Position() ).Magnitude();
             bool  thistargetted = (un->Target() == leader);
             if ( !th || (thistargetted && !targetted) || ( ( thistargetted || (!targetted) ) && d < mindist ) ) {
                 th = un;
@@ -669,7 +669,7 @@ bool AggressiveAI::ProcessCurrentFgDirective( Flightgroup *fg )
                                 }
                                 fgnum += tempnum;
                             }
-                            float  left = fgnum%2 ? 1 : -1;
+                            double left = fgnum%2 ? 1 : -1;
 
                             double dist = esc_percent*(1+abs( fgnum-1 )/2)*left*( parent->rSize()+leader->rSize() );
                             Order *ord  = new Orders::FormUp( QVector( dist, 0, -fabs( dist ) ) );
@@ -828,9 +828,9 @@ bool AggressiveAI::ProcessCurrentFgDirective( Flightgroup *fg )
                                      == leader ? leader : ( leaderowner == parent ? parent : findUnitInStarsystem( leaderowner ) ) );
                                 float  qdist = ( parent->rSize()+leaderownerun->rSize() );
                                 Order *ord   =
-                                    new Orders::MoveTo( leaderownerun->Position()+Vector( 0.5*Xpos*psize,
-                                                                                          0.5*Ypos*psize,
-                                                                                          0.5*qdist ), true, 4 );
+                                    new Orders::MoveTo( leaderownerun->Position()+Vector( static_cast<float>(0.5*Xpos*psize),
+                                                                                          static_cast<float>(0.5*Ypos*psize),
+                                                                                          static_cast<float>(0.5*qdist) ), true, 4 );
                                 ord->SetParent( parent );
                                 ReplaceOrder( ord );
                                 //facing it
@@ -971,11 +971,11 @@ bool AggressiveAI::ProcessCurrentFgDirective( Flightgroup *fg )
                             //if i am the capship, go close for pickup
                             if ( (parent->owner == leader->owner) || parent->owner == leader ) {
 //float left= fgnum%2?1:-1;
-                                float  qdist = ( 1.5*parent->rSize()+1.5*leader->rSize() );
+                                double qdist = ( 1.5*parent->rSize()+1.5*leader->rSize() );
                                 Order *ord   =
-                                    new Orders::MoveTo( LeaderPosition+Vector( 0.5*Xpos*psize,
-                                                                               0.5*Ypos*psize,
-                                                                               0.5*qdist ), true, 4 );
+                                    new Orders::MoveTo( LeaderPosition+Vector(static_cast<float>(0.5*Xpos*psize),
+                                                                              static_cast<float>(0.5*Ypos*psize),
+                                                                              static_cast<float>(0.5*qdist) ), true, 4 );
                                 ord->SetParent( parent );
                                 ReplaceOrder( ord );
                                 //facing it
@@ -1205,7 +1205,7 @@ static Unit * ChooseNavPoint( Unit *parent, Unit **otherdest, float *lurk_on_arr
     if (hostile && !anarchy)
         timehash = hostile_select_time;
     unsigned int firstRand, thirdRand;
-    float secondRand;
+    double secondRand;
     const unsigned int maxrand = 5;
     unsigned int additionalrand[maxrand];
     if (civilian) {
@@ -1390,7 +1390,7 @@ static Vector randVector()
 static void GoTo( AggressiveAI *ai,
                   Unit *parent,
                   const QVector &nav,
-                  float creationtime,
+                  double creationtime,
                   bool boonies = false,
                   Unit *destUnit = NULL )
 {
@@ -1458,6 +1458,7 @@ void AggressiveAI::ExecuteNoEnemies()
             } else {printf( "\n" ); }
 #endif
             GoTo( this, parent, nav, creationtime, otherdest != NULL, otherdest == NULL ? dest : NULL );
+
         }
     } else {
         if (CloseEnoughToNavOrDest( parent, navDestination.GetUnit(), nav ) && lurk_on_arrival == 0) {

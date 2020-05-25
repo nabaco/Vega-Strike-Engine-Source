@@ -236,9 +236,9 @@ inline QVector Transform( const Matrix & RESTRICT t, const QVector & RESTRICT v 
 }
 inline Vector Transform( const Matrix &t, const Vector &v )
 {
-    return Vector( t.p.i+v.i*t.r[0]+v.j*t.r[3]+v.k*t.r[6],
-                   t.p.j+v.i*t.r[1]+v.j*t.r[4]+v.k*t.r[7],
-                   t.p.k+v.i*t.r[2]+v.j*t.r[5]+v.k*t.r[8] );
+    return Vector( static_cast<float>(t.p.i+v.i*t.r[0]+v.j*t.r[3]+v.k*t.r[6]),
+                   static_cast<float>(t.p.j+v.i*t.r[1]+v.j*t.r[4]+v.k*t.r[7]),
+                   static_cast<float>(t.p.k+v.i*t.r[2]+v.j*t.r[5]+v.k*t.r[8]));
 }
 
 //these vectors are going to be just normals...
@@ -355,8 +355,8 @@ inline void InvertMatrix( Matrix &o, const Matrix &trans )
 
 inline void Rotate( Matrix &tmp, const Vector &axis, float angle )
 {
-    double c = cos( angle );
-    double s = sin( angle );
+    float c = cos( angle );
+    float s = sin( angle );
 //Row, COl
 #define M( a, b ) (tmp.r[b*3+a])
     M( 0, 0 ) = axis.i*axis.i*(1-c)+c;
